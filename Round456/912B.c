@@ -4,7 +4,7 @@
 int main(void)
 {
     int64_t n, k;
-    scanf("%I64d, %I64d", &n, &k);
+    scanf("%I64d %I64d", &n, &k);
     
     if (1 == k) 
 	{
