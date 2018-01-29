@@ -76,7 +76,6 @@ int main()
       }
     }
     nones++;
-    cout << "nones = " << nones << endl;
   }
 
   int cnt = 0;
@@ -95,3 +94,4 @@ int main()
 
   return 0;
 }
+
