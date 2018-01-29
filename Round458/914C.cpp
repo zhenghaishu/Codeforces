@@ -63,12 +63,11 @@ int main()
     {
       continue;
     }
-    for(int j = max(nones, 1LL); j < 20; j++)
+    for(int j = max(nones, 1LL); j < 1000; j++)
     {
       if(dp[j] == k-1)
       {
         long long temp = ncr[n.size()-i-1][j-nones];
-        printf("ncr[%d][%I64d] = %I64d\n", n.size()-i-1, j-nones, temp);
         ans = (ans + temp)%MOD;
         if(i == 0 && k == 1)
         {
