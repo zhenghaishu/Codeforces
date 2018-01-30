@@ -3,9 +3,10 @@ using namespace std;
 
 
 #define MOD 1000000007
+#define MAX 1000
 
-int dp[1004];
-long long ncr[1004][1004];
+int dp[MAX + 1];
+long long com[MAX + 1][MAX + 1];
 
 int ones(int n)
 {
@@ -18,20 +19,21 @@ int ones(int n)
     }
     n /= 2;
   }
+
   return cnt;
 }
 
-void calcncr()
+void combination()
 {
-  for(int i = 0; i <= 1000; i++)
+  for(int i = 0; i <= MAX; i++)
   {
-    ncr[i][0] = 1;
+    com[i][0] = 1;
   }
-  for(int i = 1; i <= 1000; i++)
+  for(int i = 1; i <= MAX; i++)
   {
-    for(int j = 1; j <= 1000; j++)
+    for(int j = 1; j <= MAX; j++)
     {
-      ncr[i][j] = (ncr[i-1][j-1] + ncr[i-1][j])%MOD;
+      com[i][j] = (com[i - 1][j - 1] + com[i - 1][j]) % MOD;
     }
   }
 }
@@ -40,10 +42,11 @@ int main()
 {
   string n;
   int k;
-  calcncr();
+
+  combination();
 
   dp[1] = 0;
-  for(int i = 2; i <= 1000; i++)
+  for(int i = 2; i <= MAX; i++)
   {
     dp[i] = dp[ones(i)] + 1;
   }
@@ -56,26 +59,30 @@ int main()
     return 0;
   }
 
-  long long nones = 0, ans = 0;
+  long long oneCnt = 0, ans = 0;
   for(int i = 0; i < n.size(); i++)
   {
     if(n[i] == '0')
     {
       continue;
     }
-    for(int j = max(nones, 1LL); j < 1000; j++)
+
+    // 把第j位上的1用0来代替
+    for(int j = max(oneCnt, 1LL); j <= n.size(); j++)
     {
-      if(dp[j] == k-1)
+      if(dp[j] == k - 1)
       {
-        long long temp = ncr[n.size()-i-1][j-nones];
-        ans = (ans + temp)%MOD;
+        long long temp = com[n.size() - i - 1][j - oneCnt];
+        ans = (ans + temp) % MOD;
+
+        // 1-->0，需要0步，需要把这种情况排除掉
         if(i == 0 && k == 1)
         {
-          ans = (ans+MOD-1)%MOD;
+          ans = (ans + MOD - 1) % MOD;
         }
       }
     }
-    nones++;
+    oneCnt++;
   }
 
   int cnt = 0;
@@ -86,9 +93,11 @@ int main()
       cnt++;
     }
   }
-  if(dp[cnt] == k-1)
+
+  // 最后要考虑n本身，能否构成一个special number
+  if(dp[cnt] == k - 1)
   {
-    ans = (ans + 1)%MOD;
+    ans = (ans + 1) % MOD;
   }
   cout << ans << endl;
 
