@@ -1,9 +1,10 @@
+// ÌâÄ¿£ºhttp://codeforces.com/contest/920/problem/D
+// ·ÖÎö£ºhttps://www.cnblogs.com/kkkkahlua/p/8413054.html
+
 #include <bits/stdc++.h>
 #define maxn 5010
 using namespace std;
 typedef long long LL;
-
-
 
 int main()
 {
@@ -73,11 +74,14 @@ int main()
         }
     }
 
-    if (fnl1==-1)
+    if (fnl1 == -1)
     {
-        for (int i = 1; i < n; ++i) if (b[i])
+        for (int i = 1; i < n; ++i)
         {
-            printf("%d %d %d\n", (b[i] + k-1)/k, i, n);
+            if (b[i])
+            {
+                printf("%d %d %d\n", (b[i] + k - 1) / k, i, n);
+            }
         }
 
         if (v/k)
@@ -100,11 +104,11 @@ int main()
 
         if (!flag[i])
         {
-            printf("%d %d %d\n", (b[i]+k-1)/k, i, fnl2), S2 += b[i];
+            printf("%d %d %d\n", (b[i] + k - 1)/k, i, fnl2), S2 += b[i];
         }
         else
         {
-            printf("%d %d %d\n", (b[i]+k-1)/k, i, fnl1), S1 += b[i];
+            printf("%d %d %d\n", (b[i] + k - 1)/k, i, fnl1), S1 += b[i];
         }
     }
 
